@@ -1,0 +1,69 @@
+@charset "UTF-8";
+
+
+//==================================================
+//媒体查询，断点变量
+//==================================================
+$XS: 18em;   //288px
+$S: 20em;    //480px
+$SM: 43em;   //688px
+$M : 47em;   //粗略计算，当body字体为16px时，大概有750PX
+$ML: 57em;   //912px
+$L : 75em;   //粗略计算，当body字体为16px时，大概有1200PX
+$XL: 85em;   //1360px
+
+//==================================================
+//布局区块
+//==================================================
+$defined-box-type : border-box !default;
+$big-space: 0.15rem;
+$middle-space: 0.1rem;
+$small-space: 0.05px;
+
+//==================================================
+//文字大小
+//==================================================
+$htmlsize: 62.5%;    //等于10px；
+$fontFy: "Microsoft Yahei Light";  //页面字体
+//==================================================
+//颜色区块
+//==================================================
+//背景
+$mainColor: #ff4e00; //主色
+$deepColor: #262626;  //深色
+$lightColor:#908F90;  //浅色
+$gray: gray;          //灰色
+$bodycolor:#f1f1f1;
+$contentcolor:#FFF;
+
+$selectioncolor: #E94B89;  //文字选中颜色
+$colorl: #585858;        //正常颜色
+$colors: #D6D6D6;        //辅助颜色
+$bgcolors: #fff;         //带背景的辅助色
+
+//==================================================
+//文字阴影
+//==================================================
+$default-text-shadow-color: darken($gray,20%);
+$default-text-shadow-blur: 3px;
+$default-text-shadow-v-offset: 0;
+$default-text-shadow-h-offset: 0;
+
+//==================================================
+//盒子阴影
+//==================================================
+$default-box-shadow-color: darken($gray,20%);
+$default-box-shadow-h-offset: 0px;
+$default-box-shadow-v-offset: 2px;
+$default-box-shadow-blur: 2px;
+$default-box-shadow-spread: false;
+$default-box-shadow-inset: false;
+
+
+//==================================================
+//圆角大小
+//==================================================
+$default-border-radius: 5px;
+
+
+

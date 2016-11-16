@@ -1,0 +1,77 @@
+@import "_normalize";
+@import "_base";
+@import "_iphone";
+//==================================================
+//字体
+//==================================================
+.number-fy{
+  font-family:"Arial";
+}
+//==================================================
+//布局
+//==================================================
+.pull-left{
+  float:left;
+}
+.pull-right{
+  float:right;
+}
+.hide-text{
+  font: 0/0 serif;
+  text-shadow: none;
+  color: transparent;
+}
+
+.p-l-15{
+  padding-left:15px;
+}
+//==================================================
+//字体大小
+//==================================================
+
+.size-xxl{
+  font-size:2.4em;
+}
+.size-xl{
+  font-size:1.8em;
+}
+.size-l{
+  font-size:1.6em;
+}
+.size-m{
+  font-size: 1.4em;
+}
+.size-s{
+  font-size:1.2em;
+}
+.size-xs{
+  font-size:1em;
+}
+
+//==================================================
+//字体属性
+//==================================================
+.font-bold{
+  font-weight: bold;
+}
+
+//==================================================
+//按钮
+//==================================================
+.button{
+  padding:5% 20%;
+  border:none;
+  color:$bgcolors;
+  background:$mainColor;
+  @include border-radius();
+  &:hover{
+    background:darken($mainColor,10%);
+  }
+}
+
+.border{
+  height:1px;
+  line-height: 0;
+  width:100%;
+  background:#EDEDED;
+}

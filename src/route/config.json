@@ -1,0 +1,14 @@
+[
+  {
+    "path": "/",
+    "component": "/index.vue"
+  },
+  {
+    "path": "/bits",
+    "component": "/bits.vue"
+  },
+  {
+    "path": "/test",
+    "component": "/test.vue"
+  }
+]

@@ -1,0 +1,14 @@
+.mint-tabbar>.mint-tab-item.is-selected {
+  background: none;
+  color: $mainColor
+}
+.mint-button--primary.is-plain {
+  border: 1px solid $mainColor;
+  color: $mainColor;
+}
+.is-fixed .mint-tab-item-label {
+  line-height: 1;
+}
+.mint-tab-item-label {
+  line-height: 2;
+}
