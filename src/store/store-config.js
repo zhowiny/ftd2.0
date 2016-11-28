@@ -15,6 +15,11 @@ export default {
       fixed: true,
       title: '理财产品',
       show: false
+    },
+    bitLists: {
+      type1: '',
+      type2: '',
+      type3: ''
     }
   },
   mutations: {
@@ -35,6 +40,11 @@ export default {
       for (let key in data) {
         state.header[key] = data[key]
       }
+    },
+    setBitLists (state, data) {
+      for (let key in data) {
+        state.bitLists[key] = data[key]
+      }
     }
   },
   actions: {
@@ -52,6 +62,9 @@ export default {
     },
     setHeader (ctx, data) {
       ctx.commit('setHeader', data)
+    },
+    setBitLists (ctx, data) {
+      ctx.commit('setBitLists', data)
     }
   }
 }

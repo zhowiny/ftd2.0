@@ -3,7 +3,7 @@
     <ftd-header>
       <mt-button icon="back" @click='back' slot='left'></mt-button>
     </ftd-header>
-    <transition-group tag='div' appear name='pageTransiton'>
+    <transition-group tag='div' appear name='pageTransiton' >
       <router-view key='router-view'></router-view>
     </transition-group>
     <ftd-footer></ftd-footer>
@@ -14,16 +14,33 @@
   import {Button} from 'mint-ui'
   import ftdFooter from './components/commons/footer.vue'
   import ftdHeader from './components/commons/header.vue'
+  import {mapState} from 'vuex'
   export default {
     data () {
       return {
       }
+    },
+    computed: {
+      ...mapState(['pkey'])
     },
     created () {
       this.initFontSize(document, window)
       this.$POST('/firstPage.json').then(res => {
         if (parseInt(res.code) === 200) {
           this.$store.dispatch('setFirstPageData', res)
+        }
+      }).then(() => {
+        // 新手标
+        for (let i = 1; i <= 3; i++) {
+          this.$POST('/bits.json', {
+            type: i,
+            pageSize: 30,
+            md5str: this.md5(this.pkey + i)
+          }).then(res => {
+            if (parseInt(res.code) === 200) {
+              this.$store.dispatch('setBitLists', {['type' + i]: res.data.data})
+            }
+          })
         }
       }).catch(err => {
         console.log(err)
@@ -90,19 +107,25 @@
 
   .pageTransiton-move {
     transition: all .8s;
+    position: absolute;
+    top:0;
+    width: 100%;
   }
 
   .pageTransiton-enter-active, .pageTransiton-leave-active {
     transition: all .8s;
+    position: absolute;
+    top:0;
+    width: 100%;
   }
 
   .pageTransiton-enter {
     opacity: 0;
-    transform: translate(100%)scale(.5);
+    transform: translateX(100%);
   }
 
   .pageTransiton-leave-active {
-    transform: translate(-100%)scale(.5);
+    transform: translateX(-100%);
     opacity: 0;
   }
 </style>

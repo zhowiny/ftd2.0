@@ -5,8 +5,8 @@
  * Created by Administrator on 2016/11/14.
  */
 import ajax from 'axios'
-// import {url} from './../../mixin'
 const url = 'http://ifa.futongdai.com/FTD-APP'
+// const url = 'http://192.168.1.72:8081'
 
 const $http = ajax.create({
   method: 'post',

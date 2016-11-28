@@ -7,9 +7,11 @@ import stores from './store/store-config'
 // import mint from 'mint-ui'
 import {$http, $POST} from './assets/js/axios'
 import mixin from './mixin'
+import md5 from 'blueimp-md5'
 
 Vue.prototype.$http = $http
 Vue.prototype.$POST = $POST
+Vue.prototype.md5 = md5
 Vue.use(VueRoute)
 Vue.use(Vuex)
 // Vue.use(mint)
