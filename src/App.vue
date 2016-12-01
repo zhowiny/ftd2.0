@@ -3,10 +3,12 @@
     <ftd-header>
       <mt-button icon="back" @click='back' slot='left'></mt-button>
     </ftd-header>
-    <transition-group tag='div' appear name='pageTransiton' >
-      <router-view key='router-view'></router-view>
-    </transition-group>
-    <ftd-footer></ftd-footer>
+    <!--<transition-group tag='div' appear name='pageTransiton' >-->
+      <router-view></router-view>
+    <!--</transition-group>-->
+    <transition name='slideDown' apper>
+      <ftd-footer v-show='showFooter'></ftd-footer>
+    </transition>
   </div>
 </template>
 
@@ -21,7 +23,7 @@
       }
     },
     computed: {
-      ...mapState(['pkey'])
+      ...mapState(['pkey', 'showFooter'])
     },
     created () {
       this.initFontSize(document, window)
@@ -105,27 +107,20 @@
     }
   }
 
-  .pageTransiton-move {
-    transition: all .8s;
-    position: absolute;
-    top:0;
-    width: 100%;
-  }
-
   .pageTransiton-enter-active, .pageTransiton-leave-active {
-    transition: all .8s;
+    transition: all .5s;
     position: absolute;
     top:0;
     width: 100%;
   }
 
-  .pageTransiton-enter {
+  .pageTransiton-enter,.pageTransiton-leave-active  {
     opacity: 0;
-    transform: translateX(100%);
   }
-
-  .pageTransiton-leave-active {
-    transform: translateX(-100%);
-    opacity: 0;
+  .slideDown-enter-active, .slideDown-leave-active {
+    transition: transform .5s;
+  }
+  .slideDown-enter, .slideDown-leave-active {
+    transform: translateY(100%);
   }
 </style>

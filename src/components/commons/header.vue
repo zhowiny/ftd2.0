@@ -1,6 +1,6 @@
 <template>
   <transition tag='div' name='slide' apper>
-    <header v-show="header.show" class="mint-header" :class="{ 'is-fixed': header.fixed }" :style='{"background":header.background}'>
+    <header v-show="header.show" class="mint-header" :class="{ 'is-fixed': header.fixed }" :style='{"background":header.background,"color":header.color}'>
       <div class="mint-header-button is-left">
         <slot name="left"></slot>
       </div>
@@ -21,7 +21,7 @@
   @import "./../../assets/css/common/config";
   .mint-header {
     color: $deepColor;
-    border-bottom: 1px solid $bodycolor;
+    border-bottom: 1px solid transparent;
     height: 48px;
   }
   .mint-header .mint-button {

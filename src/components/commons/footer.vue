@@ -38,7 +38,7 @@
             src: require('./../../assets/images/tabbar/licai.png')
           },
           find: {
-            path: '/test',
+            path: '/find',
             src: require('./../../assets/images/tabbar/find.png')
           },
           mine: {

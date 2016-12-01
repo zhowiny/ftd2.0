@@ -13,9 +13,10 @@ export default {
     header: {
       background: 'transparent',
       fixed: true,
-      title: '理财产品',
+      title: '富通贷',
       show: false
     },
+    showFooter: true,
     bitLists: {
       type1: '',
       type2: '',
@@ -45,6 +46,12 @@ export default {
       for (let key in data) {
         state.bitLists[key] = data[key]
       }
+    },
+    showFooter (state) {
+      state.showFooter = true
+    },
+    hideFooter (state) {
+      state.showFooter = false
     }
   },
   actions: {
@@ -65,6 +72,12 @@ export default {
     },
     setBitLists (ctx, data) {
       ctx.commit('setBitLists', data)
+    },
+    showFooter ({commit}) {
+      commit('showFooter')
+    },
+    hideFooter ({commit}) {
+      commit('hideFooter')
     }
   }
 }

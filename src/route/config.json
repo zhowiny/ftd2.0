@@ -8,7 +8,31 @@
     "component": "/bits.vue"
   },
   {
-    "path": "/test",
-    "component": "/test.vue"
+    "path": "/find",
+    "component": "/find.vue"
+  },
+  {
+    "path": "/mine",
+    "component": "/mine.vue"
+  },
+  {
+    "path": "/safe",
+    "component": "/find/safe.vue"
+  },
+  {
+    "path": "/about",
+    "component": "/find/about.vue"
+  },
+  {
+    "path": "/activity",
+    "component": "/find/activity.vue"
+  },
+  {
+    "path": "/invite",
+    "component": "/find/invite.vue"
+  },
+  {
+    "path": "*",
+    "component": "/404.vue"
   }
 ]

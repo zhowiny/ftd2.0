@@ -21,9 +21,16 @@ const router = new VueRoute(routers)
 const store = new Vuex.Store(stores)
 
 const app = new Vue({
-  el: '#app',
   render: h => h(App),
   router,
   store
 }).$mount('#app')
 app
+
+// router.beforeEach((to, from, next) => {
+//   if (!app.$store.state.isLogin && to.path !== '/') {
+//     next('/')
+//   } else {
+//     next()
+//   }
+// })

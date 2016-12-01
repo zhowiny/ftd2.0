@@ -113,6 +113,9 @@
     watch: {
       type (v) {
         this.height = v === '新手标' ? document.querySelector('.xsb').clientHeight : v === '转贷项目' ? document.querySelector('.zdxm').clientHeight : document.querySelector('.dct').clientHeight
+      },
+      xsb (v) {
+        setTimeout(() => { this.height = document.querySelector('.xsb').clientHeight }, 10)
       }
     },
     computed: {
@@ -151,13 +154,15 @@
       }
     },
     created () {
-      this.$store.dispatch('setHeader', {show: true, background: '#fff'})
+      this.$store.dispatch('setHeader', {show: true, background: '#fff', title: '理财产品'})
     },
     destroyed () {
-      this.$store.dispatch('setHeader', {show: false})
+      this.$store.dispatch('setHeader', {show: false, title: '富通贷'})
     },
     mounted () {
-      setTimeout(() => { this.height = document.querySelector('.xsb').clientHeight }, 800)
+      if (this.xsb) {
+        this.height = document.querySelector('.xsb').clientHeight
+      }
     },
     components: {
       [Tabbar.name]: Tabbar,
