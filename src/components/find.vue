@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div v-pre>
     <div class="findBanner">
       <img src="./../assets/images/find/banner.png">
     </div>
-    <ul class="list" v-pre>
+    <ul class="list" >
       <router-link tag='li' to='/safe'>
         <span class="icon"></span>
         <span>安全保障</span>
@@ -24,7 +24,7 @@
         <span>邀请好友</span>
         <i class="leftArrow"></i>
       </router-link>
-      <router-link tag='li' to='/bits'>
+      <router-link tag='li' to='/help'>
         <span class="icon help"></span>
         <span>帮助中心</span>
         <i class="leftArrow"></i>
@@ -42,14 +42,6 @@
   </div>
 </template>
 <script>
-  export default {
-    data () {
-      return {
-        auth: 'zhowiny'
-      }
-    },
-    components: {}
-  }
 </script>
 <style lang="scss">
   @import "./../assets/css/common/config";
@@ -77,25 +69,9 @@
       .icon {
         height: 0.65rem;
         width: 0.65rem;
-        background-image: url("./../assets/images/find/safe.png");
         background-size: 100% 100%;
         vertical-align: middle;
         margin-left: 0;
-      }
-      .icon.about {
-        background-image: url("./../assets/images/find/about.png");
-      }
-      .icon.activity {
-        background-image: url("./../assets/images/find/activity.png");
-      }
-      .icon.invite {
-        background-image: url("./../assets/images/find/invite.png");
-      }
-      .icon.help {
-        background-image: url("./../assets/images/find/help.png");
-      }
-      .icon.contact {
-        background-image: url("./../assets/images/find/contact.png");
       }
       .leftArrow {
         display: inline-block;
@@ -107,6 +83,24 @@
         margin-left: $big-space;
       }
     }
+  }
+  .icon {
+    background-image: url("./../assets/images/find/safe.png");
+  }
+  .icon.about {
+    background-image: url("./../assets/images/find/about.png");
+  }
+  .icon.activity {
+    background-image: url("./../assets/images/find/activity.png");
+  }
+  .icon.invite {
+    background-image: url("./../assets/images/find/invite.png");
+  }
+  .icon.help {
+    background-image: url("./../assets/images/find/help.png");
+  }
+  .icon.contact {
+    background-image: url("./../assets/images/find/contact.png");
   }
   .kefu {
     margin-bottom: 55px;
@@ -120,5 +114,19 @@
         color: $mainColor;
       }
     }
+  }
+  .slideIn {
+    transition: all .5s;
+    margin-top: $titleHeight;
+    background: #fff;
+  }
+  .slideIn-enter {
+    margin-top:0;
+  }
+  .slideIn-leave-active {
+    display: none;
+  }
+  .titleHeight {
+    margin-top: $titleHeight;
   }
 </style>

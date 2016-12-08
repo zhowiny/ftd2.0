@@ -32,6 +32,14 @@
     "component": "/find/invite.vue"
   },
   {
+    "path": "/help",
+    "component": "/find/help.vue"
+  },
+  {
+    "path": "/helpCenter/noviceRead",
+    "component": "/find/noviceRead.vue"
+  },
+  {
     "path": "*",
     "component": "/404.vue"
   }

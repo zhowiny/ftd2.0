@@ -1,6 +1,6 @@
 <template>
-  <transition name='activity' tag='div'>
-    <div class="activity">
+  <transition name='slideIn' tag='div'>
+    <div class="activity slideIn">
       <div class="redBag">
         <div>
           <h2>邀请就送红包</h2>
@@ -39,8 +39,6 @@
   @import "./../../assets/css/common/config";
 
   .activity {
-    transition: all .5s;
-    margin-top: 48px;
     background: #fff;
     padding-bottom: $big-space * 2;
     > div {
@@ -78,9 +76,5 @@
       background-image: url("./../../assets/images/find/djqbg.jpg");
       margin-bottom: 0;
     }
-  }
-
-  .activity-enter, .activity-leave-active {
-    margin-top: 0;
   }
 </style>

@@ -1,6 +1,6 @@
 <template>
-  <transition name='safe' tag='div'>
-    <div class="safe" v-pre>
+  <transition name='slideIn' tag='div'>
+    <div class="safe slideIn" v-pre>
       <img src="./../../assets/images/find/safeBanner.jpg">
       <div class="cnt">
         <h3>01.投资安全</h3>
@@ -61,17 +61,12 @@ export default {
 <style scoped lang='scss'>
   @import "./../../assets/css/common/config";
   .safe {
-    transition: all .5s;
-    margin-top: 48px;
     text-align: left;
     background: #fff;
     >img {
       width: 7.5rem;
       height: 2.3rem;
     }
-  }
-  .safe-enter,.safe-leave-active{
-    margin-top: 0;
   }
   .cnt {
     padding: $big-space * 4 $big-space * 2;

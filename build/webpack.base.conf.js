@@ -80,7 +80,7 @@ module.exports = {
       },
       {
         test: /\.scss?$/,
-        loader: 'stylesheet-loader!style-loader!css-loader'
+        loader: 'stylesheet-loader!style-loader!css-loader!postcss-loader'
       }
     ]
   },

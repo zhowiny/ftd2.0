@@ -1,6 +1,6 @@
 <template>
-  <transition name='about' tag='div'>
-    <div class="about" v-pre>
+  <transition name='slideIn' tag='div'>
+    <div class="about slideIn" v-pre>
       <img src="./../../assets/images/find/aboutBanner.jpg">
       <div class="cnt">
         <h4>集团概要</h4>
@@ -45,8 +45,6 @@ export default {
 <style scoped lang='scss'>
   @import "./../../assets/css/common/config";
   .about {
-    transition: all .5s;
-    margin-top: 48px;
     text-align: left;
     background: #fff;
     font-size: 0.26rem;
@@ -63,8 +61,5 @@ export default {
         text-indent: 2em;
       }
     }
-  }
-  .about-enter,.about-leave-active {
-    margin-top: 0;
   }
 </style>
