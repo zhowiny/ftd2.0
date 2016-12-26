@@ -24,7 +24,7 @@
           <i>预期年化收益</i>
         </div>
       </div>
-      <div class="btn" @click='toPage({path:"test"})'>
+      <div class="btn" @click='toPage({path:"bits"})'>
         <mt-button size="large" type='primary' plain>购买</mt-button>
       </div>
     </div>

@@ -27,6 +27,10 @@ const app = new Vue({
 }).$mount('#app')
 app
 
+router.afterEach(route => {
+  document.body.scrollTop = 0
+})
+
 // router.beforeEach((to, from, next) => {
 //   if (!app.$store.state.isLogin && to.path !== '/') {
 //     next('/')

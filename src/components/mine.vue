@@ -45,7 +45,7 @@
         <span>我的福利</span>
         <i class="leftArrow"></i>
       </router-link>
-      <router-link tag='li' to='/bits'>
+      <router-link tag='li' to='/invite'>
         <span class="icon inviteFriend"></span>
         <span>邀请好友</span>
         <i class="leftArrow"></i>

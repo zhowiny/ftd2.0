@@ -7,7 +7,7 @@
           <span>新手必读</span>
           <i class="leftArrow" />
         </router-link>
-        <router-link tag='li' to='/activity'>
+        <!--<router-link tag='li' to='/activity'>
           <span class="icon register" />
           <span>注册绑卡</span>
           <i class="leftArrow" />
@@ -26,7 +26,7 @@
           <span class="icon productInfo" />
           <span>产品介绍</span>
           <i class="leftArrow" />
-        </router-link>
+        </router-link>-->
       </ul>
     </div>
   </transition>
@@ -44,10 +44,6 @@ export default {
     this.$store.dispatch('setHeader', {show: true, background: '#fff', title: '帮助中心'})
     this.$store.dispatch('hideFooter')
   }
-//  destroyed () {
-//    this.$store.dispatch('setHeader', {show: false, title: '富通贷', background: '#fff'})
-//    this.$store.dispatch('showFooter')
-//  }
 }
 </script>
 <style scoped lang='scss'>

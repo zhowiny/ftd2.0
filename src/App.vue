@@ -99,7 +99,7 @@
     min-height: 100%;
     margin: 0 auto;
     text-align: center;
-    overflow: hidden;
+    overflow: auto;
   }
   @include MQ(pc) {
     #app {

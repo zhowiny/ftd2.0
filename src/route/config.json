@@ -8,6 +8,11 @@
     "component": "/bits.vue"
   },
   {
+    "path": "/bitDetail/:bid",
+    "name": "bitDetail",
+    "component": "/bits/bitDetail.vue"
+  },
+  {
     "path": "/find",
     "component": "/find.vue"
   },
@@ -38,6 +43,10 @@
   {
     "path": "/helpCenter/noviceRead",
     "component": "/find/noviceRead.vue"
+  },
+  {
+    "path": "/contact",
+    "component": "/find/contact.vue"
   },
   {
     "path": "*",

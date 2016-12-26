@@ -5,34 +5,34 @@
     </div>
     <ul class="list" >
       <router-link tag='li' to='/safe'>
-        <span class="icon"></span>
+        <span class="icon" />
         <span>安全保障</span>
-        <i class="leftArrow"></i>
+        <i class="leftArrow" />
       </router-link>
       <router-link tag='li' to='/about'>
-        <span class="icon about"></span>
+        <span class="icon about" />
         <span>关于富通贷</span>
-        <i class="leftArrow"></i>
+        <i class="leftArrow" />
       </router-link>
       <router-link tag='li' to='/activity'>
-        <span class="icon activity"></span>
+        <span class="icon activity" />
         <span>精彩活动</span>
-        <i class="leftArrow"></i>
+        <i class="leftArrow" />
       </router-link>
       <router-link tag='li' to='/invite'>
-        <span class="icon invite"></span>
+        <span class="icon invite" />
         <span>邀请好友</span>
-        <i class="leftArrow"></i>
+        <i class="leftArrow" />
       </router-link>
       <router-link tag='li' to='/help'>
-        <span class="icon help"></span>
+        <span class="icon help" />
         <span>帮助中心</span>
-        <i class="leftArrow"></i>
+        <i class="leftArrow" />
       </router-link>
-      <router-link tag='li' to='/bits'>
-        <span class="icon contact"></span>
+      <router-link tag='li' to='/contact'>
+        <span class="icon contact" />
         <span>联系我们</span>
-        <i class="leftArrow"></i>
+        <i class="leftArrow" />
       </router-link>
     </ul>
     <div class="kefu">

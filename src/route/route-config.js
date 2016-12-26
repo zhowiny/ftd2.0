@@ -8,7 +8,8 @@ const registerRoute = config => {
   config.map(page => {
     route.push({
       path: page.path,
-      component: require(`./../components${page.component}`)
+      component: require(`./../components${page.component}`),
+      name: page.name || ''
     })
   })
   return route

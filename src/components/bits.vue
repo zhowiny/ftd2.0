@@ -19,7 +19,9 @@
             <h2>{{b.bName}} 期</h2>
             <div>
               <span class="deadline"><span>投资期限 <b>{{b.bTerm}}</b> {{b.bTermType}}</span></span>
-              <a class="button" :data-id='b.bId'>立即购买</a>
+              <router-link :to="{ name: 'bitDetail', params: { bid: b.bId }}">
+                <a class="button" :data-id='b.bId'>立即购买</a>
+              </router-link>
             </div>
           </div>
         </div>
@@ -48,7 +50,9 @@
             <h2>{{b.bName}} 期</h2>
             <div>
               <span class="deadline"><span>投资期限 <b>{{b.bTerm}}</b> {{b.bTermType}}</span></span>
-              <a class="button" :data-id='b.bId'>立即购买</a>
+              <router-link :to="{ name: 'bitDetail', params: { bid: b.bId }}">
+                <a class="button" :data-id='b.bId'>立即购买</a>
+              </router-link>
             </div>
           </div>
         </div>
@@ -77,7 +81,9 @@
             <h2>{{b.bName}} 期</h2>
             <div>
               <span class="deadline"><span>投资期限 <b>{{b.bTerm}}</b> {{b.bTermType}}</span></span>
-              <a class="button" :data-id='b.bId'>立即购买</a>
+              <router-link :to="{ name: 'bitDetail', params: { bid: b.bId }}">
+                <a class="button" :data-id='b.bId'>立即购买</a>
+              </router-link>
             </div>
           </div>
         </div>
@@ -154,10 +160,15 @@
       }
     },
     created () {
-      this.$store.dispatch('setHeader', {show: true, background: '#fff', title: '理财产品'})
+      this.$store.dispatch('setHeader', {show: true, fixed: true, background: '#fff', title: '理财产品', color: ''})
+      this.$store.dispatch('showFooter')
     },
-    destroyed () {
-      this.$store.dispatch('setHeader', {show: false, title: '富通贷'})
+    beforeRouteLeave (to, from, next) {
+      if (to.path.indexOf('/bit') < 0) {
+        this.$store.dispatch('setHeader', {show: false, title: '富通贷', background: '#fff'})
+        this.$store.dispatch('showFooter')
+      }
+      next()
     },
     mounted () {
       if (this.xsb) {
@@ -184,7 +195,7 @@
     >span {
       display: block;
       position: absolute;
-      top: 0.8rem;
+      top: 42px;
       left: 1.25rem;
       width:0;
       border: $middle-space * 2 solid transparent;

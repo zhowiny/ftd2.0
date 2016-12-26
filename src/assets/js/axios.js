@@ -9,7 +9,6 @@ import ajax from 'axios'
 // const url = process.env.NODE_ENV === 'production' ? config.build.httpUrl : config.dev.httpUrl
 // const url = 'http://192.168.1.72:8081'
 const url = 'http://ifa.futongdai.com/FTD-APP'
-
 const $http = ajax.create({
   method: 'post',
   baseURL: url,
