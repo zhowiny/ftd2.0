@@ -7,7 +7,7 @@
         </div>
         <h1 class="mint-header-title" >账户</h1>
         <div class="mint-header-button is-right">
-          <router-link tag='span' to='/'>签到</router-link>
+          <router-link tag='span' to='/checkIn'>签到</router-link>
         </div>
       </header>
       <img src="./../assets/images/mine/user.png">
@@ -35,7 +35,7 @@
       </div>
     </div>
     <ul class="list" v-pre>
-      <router-link tag='li' to='/'>
+      <router-link tag='li' to='/assets'>
         <span class="icon assets"></span>
         <span>我的资产</span>
         <i class="leftArrow"></i>
@@ -50,11 +50,11 @@
         <span>邀请好友</span>
         <i class="leftArrow"></i>
       </router-link>
-      <router-link tag='li' to='/bits'>
+      <!--<router-link tag='li' to='/bits'>
         <span class="icon activity"></span>
         <span>特权活动</span>
         <i class="leftArrow"></i>
-      </router-link>
+      </router-link>-->
       <router-link tag='li' to='/bits'>
         <span class="icon accountSet"></span>
         <span>账户设置</span>

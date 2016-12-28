@@ -34,7 +34,7 @@
 <script>
 export default {
   beforeRouteLeave (to, from, next) {
-    if (to.path.indexOf('/helpCenter') < 0) {
+    if (!~to.path.indexOf('/helpCenter')) {
       this.$store.dispatch('setHeader', {show: false, title: '富通贷', background: '#fff'})
       this.$store.dispatch('showFooter')
     }

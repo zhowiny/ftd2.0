@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <ftd-header>
-      <mt-button icon="back" @click='back' slot='left'></mt-button>
+      <mt-button :style='{color: header.color}' icon="back" @click='back' slot='left'></mt-button>
     </ftd-header>
     <!--<transition-group tag='div' appear name='pageTransiton' >-->
       <router-view></router-view>
@@ -23,7 +23,7 @@
       }
     },
     computed: {
-      ...mapState(['pkey', 'showFooter'])
+      ...mapState(['pkey', 'showFooter', 'header'])
     },
     created () {
       this.initFontSize(document, window)

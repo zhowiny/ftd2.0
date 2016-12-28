@@ -1,14 +1,13 @@
 <template>
   <div class="mask" v-show="value">
     <div class="modal">
-      <span>&times;</span>
-      <h3>实名认证</h3>
-      <div class="content">
-        为了保障您的资金安全,购买前请实名认证.
+      <span @click="hide">&times;</span>
+      <h3>{{title}}</h3>
+      <div class="content" v-html="content">
       </div>
       <div class="modal-btn">
         <div class="cancel" @click="hide">取消</div>
-        <div class="confirme">确定</div>
+        <div class="confirme" @click='toPage(path)'>确定</div>
       </div>
     </div>
   </div>
@@ -17,12 +16,22 @@
 export default {
   data () {
     return {
-      value: ''
+      value: '',
+      title: '',
+      content: '',
+      path: ''
     }
   },
   methods: {
     hide () {
       this.value = false
+    },
+    toPage (path) {
+      if (!path) {
+        this.hide()
+        return
+      }
+      this.$router.push({path: path})
     }
   }
 }

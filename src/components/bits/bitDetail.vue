@@ -138,7 +138,26 @@
       </transition>
     </div>
     <div class="buy" @click='modal'>立即抢购</div>
-
+    <!--密码框-->
+    <div class="mask" v-show="passwordBox">
+      <div class="modal">
+        <span @click="hidePasswordBox">&times;</span>
+        <h3>短信验证码</h3>
+        <div class="password-content">
+          <div>
+            <span>交易密码:</span>
+            <input type="text" placeholder="请输入交易密码">
+          </div>
+          <div>
+            <input type="password" placeholder="请输入短信验证码">
+            <span @click="countdown">{{countText}}</span>
+          </div>
+        </div>
+        <div class="modal-btn">
+          <div class="confirme" >确定</div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -149,7 +168,11 @@
         selected: false,
         selectedVal: '代金券抵扣',
         mockData: ['5%加息券', '5块钱代金券', '2%加息券', '10%加息券(7天)'],
-        status: [false, false, false]
+        status: [false, false, false],
+        passwordBox: false,
+        countText: '获取',
+        time: '',
+        clickable: true
       }
     },
     methods: {
@@ -163,7 +186,26 @@
         this.status.splice(index, 1, !this.status[index])
       },
       modal () {
-        showModal({message: '123', title: '234'})
+//        showModal({content: '为了保障您的资金安全,购买前请实名认证.', title: '实名认证'})
+        showModal({content: '您当前购买产品的账户余额不足,请先充值!', title: '充值'})
+      },
+      hidePasswordBox () {
+        this.passwordBox = false
+      },
+      countdown () {
+        // 获取验证倒计时
+        if (!this.clickable) return
+        this.clickable = false
+        this.countText = 10
+        this.time = setInterval(() => {
+          if (this.countText <= 0) {
+            this.countText = '获取'
+            clearInterval(this.time)
+            this.clickable = true
+            return
+          }
+          this.countText --
+        }, 1000)
       }
     },
     created () {
@@ -469,5 +511,89 @@
 
   .slideToggle-enter, .slideToggle-leave-active {
     transform: scale3d(1, 0, 1);
+  }
+  .mask {
+    position: fixed;
+    top:0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0,0,0,.5);
+    z-index: 100;
+  }
+  .modal {
+    position: fixed;
+    top:25%;
+    left:50%;
+    transform: translate(-50%);
+    width: 6.8rem;
+    z-index: 101;
+    background: rgba(255,255,255,1);
+    border-radius: 0.3rem;
+    text-align: center;
+    >span {
+      display: block;
+      position: absolute;
+      width: 0.5rem;
+      height: 0.5rem;
+      right: 0.3rem;
+      top: -0.3rem;
+      border-radius: 50%;
+      font-size: 0.6rem;
+      line-height: 0.5rem;
+      border: 1px solid $lightColor;
+      background: #fff;
+      color: darken($lightColor, 20%);
+    }
+    >h3 {
+      padding: $big-space 0;
+      border-bottom: 1px dashed $lightColor;
+      margin-bottom: $big-space * 3;
+      color:#444;
+      font-size: 0.36rem;
+      font-weight: normal;
+    }
+  }
+  .password-content {
+    padding: 0 0.8rem;
+    text-align: left;
+    font-size: 0.32rem;
+    color: $mainColor;
+    >div {
+      display: flex;
+      border-bottom: 1px solid $mainColor;
+      height: 0.8rem;
+      align-items: stretch;
+      input {
+        border: none;
+        outline: none;
+        width: 70%;
+      }
+      span {
+        display: block;
+        width: 30%;
+        text-align: center;
+        align-self: center;
+      }
+    }
+  }
+  .modal-btn {
+    display: flex;
+    margin-top: $big-space * 3;
+    margin-bottom: $big-space * 3;
+    justify-content: center;
+    >div {
+      width: 2rem;
+      margin: 0 $big-space * 2;
+      padding: $big-space 0;
+      border-radius: 8px;
+      background: $lightColor;
+      color:#fff;
+      font-size: 0.32rem;
+    }
+    div.confirme {
+      background: $mainColor;
+      width: 80%;
+    }
   }
 </style>

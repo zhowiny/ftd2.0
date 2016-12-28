@@ -5,7 +5,11 @@
 export default {
   methods: {
     toPage (para) {
-      this.$router.push(para)
+      if (typeof para === 'number') {
+        this.$router.go(para)
+      } else {
+        this.$router.push(para)
+      }
     }
   }
 }

@@ -18,6 +18,9 @@ let showModal = options => {
     initInstance()
     document.body.appendChild(instance.$el)
   }
+  for (let key in options) {
+    instance[key] = options[key]
+  }
   if (!instance.value) {
     Vue.nextTick(() => {
       instance.value = true

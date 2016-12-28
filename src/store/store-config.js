@@ -14,7 +14,8 @@ export default {
       background: 'transparent',
       fixed: true,
       title: '富通贷',
-      show: false
+      show: false,
+      color: ''
     },
     showFooter: true,
     bitLists: {

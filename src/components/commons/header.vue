@@ -24,6 +24,10 @@
     border-bottom: 1px solid transparent;
     height: 48px;
   }
+  .mint-header-title {
+    font-size: 0.36rem;
+    overflow: visible;
+  }
   .mint-header .mint-button {
     color: $mainColor;
   }

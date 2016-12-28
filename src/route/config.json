@@ -21,6 +21,31 @@
     "component": "/mine.vue"
   },
   {
+    "path": "/checkIn",
+    "component": "/mine/checkIn.vue"
+  },
+  {
+    "path": "/assets",
+    "component": "/mine/assets.vue"
+  },
+  {
+    "path": "/assets/annal",
+    "component": "/mine/annal.vue"
+  },
+  {
+    "path": "/assets/transaction",
+    "component": "/mine/transactionDetail.vue"
+  },
+  {
+    "path": "/assets/funds",
+    "component": "/mine/returnFunds.vue"
+  },
+  {
+    "name": "recordDetail",
+    "path": "/assets/detail/:id",
+    "component": "/mine/recordDetail.vue"
+  },
+  {
     "path": "/safe",
     "component": "/find/safe.vue"
   },
