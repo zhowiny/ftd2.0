@@ -169,7 +169,7 @@
         selectedVal: '代金券抵扣',
         mockData: ['5%加息券', '5块钱代金券', '2%加息券', '10%加息券(7天)'],
         status: [false, false, false],
-        passwordBox: false,
+        passwordBox: true,
         countText: '获取',
         time: '',
         clickable: true
@@ -196,7 +196,7 @@
         // 获取验证倒计时
         if (!this.clickable) return
         this.clickable = false
-        this.countText = 10
+        this.countText = 60
         this.time = setInterval(() => {
           if (this.countText <= 0) {
             this.countText = '获取'

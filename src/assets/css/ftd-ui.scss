@@ -12,3 +12,9 @@
 .mint-tab-item-label {
   line-height: 2;
 }
+.mint-cell-title {
+  text-align: left;
+}
+.mint-cell.mint-cell:last-child {
+  background-image: none;
+}

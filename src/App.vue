@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class='app'>
     <ftd-header>
       <mt-button :style='{color: header.color}' icon="back" @click='back' slot='left'></mt-button>
     </ftd-header>
@@ -91,7 +91,7 @@
     background: $bodycolor;
   }
 
-  #app {
+  .app {
     // #app style
     font-size: 0.28rem;
     max-width: 960px;
@@ -102,7 +102,7 @@
     overflow: auto;
   }
   @include MQ(pc) {
-    #app {
+    .app {
       box-shadow: 1px -10px 10px $mainColor, -1px -10px 10px $mainColor;
     }
   }

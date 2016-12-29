@@ -21,8 +21,29 @@
     "component": "/mine.vue"
   },
   {
+    "path": "/chrage",
+    "component": "/account/chrage.vue"
+  },
+  {
     "path": "/checkIn",
     "component": "/mine/checkIn.vue"
+  },
+  {
+    "path": "/benefit",
+    "component": "/mine/benefit.vue"
+  },
+  {
+    "path": "/feedback",
+    "component": "/mine/feedback.vue"
+  },
+  {
+    "path": "/message",
+    "component": "/mine/message.vue"
+  },
+  {
+    "name": "messageDetail",
+    "path": "/message/detail/:id",
+    "component": "/mine/messageDetail.vue"
   },
   {
     "path": "/assets",

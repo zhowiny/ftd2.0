@@ -238,11 +238,11 @@
   }
 
   .bitList.转贷项目 {
-    transform: translateX(-33.33333%);
+    transform: translate3d(-33.33333%,0,0);
   }
 
   .bitList.定存通 {
-    transform: translateX(-66.666667%);
+    transform: translate3d(-66.666667%,0,0);
   }
 
   .bitList {
@@ -250,6 +250,7 @@
     transition: transform .8s;
     overflow: hidden;
     text-align: left;
+    min-height: 9rem;
     margin-bottom: calc(55px + 0.5rem);
     .xsb, .dct, .zdxm {
       width: 7.5rem;

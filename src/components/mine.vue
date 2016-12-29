@@ -27,7 +27,7 @@
       </div>
       <div>
         <div class="btn">
-          <router-link tag='button' to='/'>充值</router-link>
+          <router-link tag='button' to='/chrage'>充值</router-link>
         </div>
         <div class="btn">
           <router-link tag='button' to='/'>提现</router-link>
@@ -40,7 +40,7 @@
         <span>我的资产</span>
         <i class="leftArrow"></i>
       </router-link>
-      <router-link tag='li' to='/bits'>
+      <router-link tag='li' to='/benefit'>
         <span class="icon welfare"></span>
         <span>我的福利</span>
         <i class="leftArrow"></i>
@@ -60,12 +60,12 @@
         <span>账户设置</span>
         <i class="leftArrow"></i>
       </router-link>
-      <router-link tag='li' to='/bits'>
+      <router-link tag='li' to='/message'>
         <span class="icon message"></span>
         <span>信息中心</span>
         <i class="leftArrow"></i>
       </router-link>
-      <router-link tag='li' to='/bits'>
+      <router-link tag='li' to='/feedback'>
         <span class="icon suggestion"></span>
         <span>意见反馈</span>
         <i class="leftArrow"></i>
