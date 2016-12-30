@@ -3,7 +3,7 @@
     <div class="account">
       <header class="mint-header" style="background:transparent;color:#fff;border:none;">
         <div class="mint-header-button is-left">
-          <router-link tag='span' to='/' />
+          <router-link tag='span' to='/set' />
         </div>
         <h1 class="mint-header-title" >账户</h1>
         <div class="mint-header-button is-right">
@@ -30,7 +30,7 @@
           <router-link tag='button' to='/chrage'>充值</router-link>
         </div>
         <div class="btn">
-          <router-link tag='button' to='/'>提现</router-link>
+          <router-link tag='button' to='/withdraw'>提现</router-link>
         </div>
       </div>
     </div>
@@ -55,7 +55,7 @@
         <span>特权活动</span>
         <i class="leftArrow"></i>
       </router-link>-->
-      <router-link tag='li' to='/bits'>
+      <router-link tag='li' to='/set'>
         <span class="icon accountSet"></span>
         <span>账户设置</span>
         <i class="leftArrow"></i>

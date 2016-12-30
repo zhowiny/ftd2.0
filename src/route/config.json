@@ -21,8 +21,28 @@
     "component": "/mine.vue"
   },
   {
+    "path": "/set",
+    "component": "/account/setting.vue"
+  },
+  {
+    "path": "/set/authenticate",
+    "component": "/account/authenticate.vue"
+  },
+  {
+    "path": "/set/bankcard",
+    "component": "/account/bankcard.vue"
+  },
+  {
+    "path": "/set/password",
+    "component": "/account/password.vue"
+  },
+  {
     "path": "/chrage",
     "component": "/account/chrage.vue"
+  },
+  {
+    "path": "/withdraw",
+    "component": "/account/withdraw.vue"
   },
   {
     "path": "/checkIn",
