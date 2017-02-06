@@ -4,11 +4,11 @@
       <ul>
         <li><span>微信公众号</span><i>富通贷</i></li>
         <li><span>官方微博</span><i>富通贷</i></li>
-        <li><span>客服邮箱</span><i>servie@ofim.com.cn</i></li>
+        <li><span>客服邮箱</span><i>service@ofim.com.cn</i></li>
         <li><span>官方QQ</span><i>4000000303</i></li>
         <li><span>客服热线</span><i>400-000-0303</i></li>
         <li><span>地址1</span><i>北京市朝阳区东三环中路7号北京财富中心A座10层(深圳市富通贷金融服务有限公司北京分公司)</i></li>
-        <li><span>地址2</span><i>深圳市罗湖区深南东路5016号大厦京基100大厦A做69层(深圳市富通贷金融服务有限公司)</i></li>
+        <li><span>地址2</span><i>深圳市福田中心区福华三路卓越世纪中心4号楼2208单元</i></li>
       </ul>
     </div>
   </transition>

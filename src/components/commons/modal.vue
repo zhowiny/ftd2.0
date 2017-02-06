@@ -7,7 +7,7 @@
       </div>
       <div class="modal-btn">
         <div class="cancel" @click="hide">取消</div>
-        <div class="confirme" @click='toPage(path)'>确定</div>
+        <div class="confirme" @click='toPage()'>确定</div>
       </div>
     </div>
   </div>
@@ -26,12 +26,10 @@ export default {
     hide () {
       this.value = false
     },
-    toPage (path) {
-      if (!path) {
-        this.hide()
-        return
-      }
-      this.$router.push({path: path})
+    toPage () {
+      this.hide()
+      if (!this.path) return
+      window.location.hash = this.path
     }
   }
 }

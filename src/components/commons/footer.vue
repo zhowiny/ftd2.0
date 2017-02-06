@@ -55,6 +55,7 @@
           this.menu[k].src = require('./../../assets/images/tabbar/' + k + '.png')
         }
         this.menu[val].src = require('./../../assets/images/tabbar/' + val + '-active.png')
+        this.checkRoute(this.$route.path)
       },
       '$route' (to, from) {
         this.checkRoute(to.path)

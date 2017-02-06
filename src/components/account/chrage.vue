@@ -8,28 +8,28 @@
       </div>
       <div class="cell bank">
         <div>
-          <img src="./../../assets/images/account/gs.png">
+          <img :src="account.logoSquare">
         </div>
         <div>
-          <p>工商银行</p>
-          <p>尾号****9999</p>
+          <p>{{account.bankName}}</p>
+          <p>卡号{{account.bankNo}}</p>
         </div>
       </div>
       <div class="cell">
         <p>充值金额</p>
-        <input type="text" placeholder="请输入充值金额">
+        <input type="text" placeholder="请输入充值金额" v-model="money">
       </div>
       <div class="cell">
         <p>充值后的账户总金额(元)</p>
-        <p class="color">0.00</p>
+        <p class="color">{{total}}</p>
       </div>
-      <div class="cell">
-        <p>支付密码</p>
-        <input type="password" placeholder="请输入支付密码">
-      </div>
+      <!--<div class="cell">
+        <p>交易密码</p>
+        <input type="password" placeholder="请输入交易密码">
+      </div>-->
       <button class='chrage' @click="chrage">立即充值</button>
       <!--弹出框-->
-      <div class="mask" v-show="confirme">
+      <!--<div class="mask" v-show="confirme">
         <div class="modal">
           <span @click="hideBox">&times;</span>
           <h3>确认充值</h3>
@@ -39,59 +39,95 @@
               <p>验证码已发送您注册时的手机上182****9211</p>
             </div>
             <div>
-              <input type="password" placeholder="请输入短信验证码">
-              <span @click="countdown">{{countText}}</span>
+              <input type="text" placeholder="请输入短信验证码">
+              <span @click="getVerifyCode">{{countText}}</span>
             </div>
           </div>
           <div class="modal-btn">
             <div class="confirme" @click="hideBox">确定</div>
           </div>
         </div>
-      </div>
+      </div>-->
     </div>
   </transition>
 </template>
 <script>
-  import {showModal} from './../commons/modal'
+//  import {showModal} from './../commons/modal'
+  import {mapState} from 'vuex'
+//  import axios from 'axios'
   export default {
     data () {
       return {
-        confirme: true,
+        confirme: false,
         countText: '获取',
         time: '',
-        clickable: true
+        clickable: true,
+        money: ''
+      }
+    },
+    computed: {
+      ...mapState(['pkey', 'account', 'userInfo']),
+      total () {
+        let m
+        m = parseFloat(this.money || 0)
+        m = (this.account.acountAmount * 100 + m * 100) / 100
+        return Number(m).toFixed(2)
       }
     },
     methods: {
       chrage () {
-        showModal({
-          title: '充值成功',
-          content: `
-          <div style="text-align:center">
-            <img style="width:1.3rem;height:1.3rem;" src="${require('./../../assets/images/account/success.png')}" alt="">
-            <p>充值金额(元): <span>100.00</span></p>
-            <p>账户总额(元): <span>100.00</span></p>
-          </div>`
+        if (!/^\d+(\.[\d]{1,2})?$/.test(this.money)) {
+          this.toast('请输入正确的金额!')
+          return
+        }
+        // todo 上线前改成正确的充值地址
+        let url = 'http://www.futongdai.com'
+//        let url = 'http://test.futongdai.com:38022/FTD'
+        this.$POST(url + '/chargeH5API.htm?payFlg=6&chargeMoney=' + this.money + '&userId=' + this.userInfo.uid, {}).then((res) => {
+          window.location.href = res
+        }).catch((err) => {
+          this.toast(err.toString())
         })
       },
       hideBox () {
         this.confirme = false
-        clearInterval(this.time)
+//        clearInterval(this.time)
       },
       countdown () {
         // 获取验证倒计时
-        if (!this.clickable) return
-        this.clickable = false
         this.countText = 60
         this.time = setInterval(() => {
           if (this.countText <= 0) {
-            this.countText = '重新发送'
+            this.countText = '获取'
             clearInterval(this.time)
             this.clickable = true
             return
           }
           this.countText --
         }, 1000)
+      },
+      getVerifyCode () {
+        // 获取验证码
+        if (!this.clickable) return
+        this.clickable = false
+        this.$POST('/sendmsg.json', {
+          uid: this.userInfo.uid || '',
+          uphone: this.userInfo.phone,
+          type: 0,
+          pkey: this.pkey,
+          md5str: this.md5(this.pkey + (this.userInfo.uid || '') + this.userInfo.phone)
+        }).then(res => {
+          if (parseInt(res.code) === 200) {
+            this.toast('发送成功!')
+            this.countdown()
+          } else {
+            this.toast(res.msg)
+            this.clickable = true
+          }
+        }).catch(err => {
+          this.toast(err.toString())
+          this.clickable = true
+        })
       }
     },
     created () {

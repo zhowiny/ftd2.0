@@ -28,3 +28,7 @@ a{
   background: $selectioncolor;
   text-shadow: none;
 }
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}

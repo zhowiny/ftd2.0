@@ -6,16 +6,20 @@
       <div class="space"></div>
       <mt-cell title="密码管理" is-link to='/set/password'/>
       <div class="space"></div>
-      <mt-cell title="绑定邮箱" is-link />
-      <router-link to=''>
-        <button class="ftd-btn">安全退出</button>
-      </router-link>
+      <mt-cell title="绑定邮箱" is-link to='/set/email'/>
+      <!--@click="loginout({path:'/find',query:{a:1,b:2}})"-->
+      <button class="ftd-btn" @click="loginout()">安全退出</button>
     </div>
   </transition>
 </template>
 <script>
   import {Cell} from 'mint-ui'
   export default {
+    methods: {
+      aaa () {
+        this.$router.replace({path: '/find', query: {'asd': 'qwe', 'zxc': '123'}})
+      }
+    },
     beforeRouteLeave (to, from, next) {
       if (!~to.path.indexOf('/set')) {
         this.$store.dispatch('setHeader', {show: false, title: '富通贷', background: '#fff'})

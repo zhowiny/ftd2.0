@@ -1,16 +1,16 @@
 <template>
   <div class="invite">
-    <img src="./../../assets/images/find/inviteBanner.png">
+    <img src="./../../assets/images/find/inviteBanner.png" >
     <h1><span>方式一:</span>请分享链接到社交网络</h1>
     <div class="shareIcon">
-      <a target="_blank" :href="'http://www.jiathis.com/send/?webid=weixin&url=http://www.futongdai.com/act/websiteH5page/?inviter='+user+'&title=非常棒的分享工具'">微信</a>
-      <a target="_blank" :href="'http://www.jiathis.com/send/?webid=cqq&url=http://www.futongdai.com/act/websiteH5page/?inviter='+user+'&title=富通贷--来自QQ好友分享'">QQ好友</a>
-      <a target="_blank" :href="'http://www.jiathis.com/send/?webid=qzone&url=http://www.futongdai.com/act/websiteH5page/?inviter='+user+'&title=富通贷--来自QQ空间分享'">QQ空间</a>
-      <a target="_blank" :href="'http://www.jiathis.com/send/?webid=tsina&url=http://www.futongdai.com/act/websiteH5page/?inviter='+user+'&title=富通贷--来自微博分享'">微博</a>
+      <a target="_blank" :href="'http://www.jiathis.com/send/?webid=weixin&url='+phone+'&title=富通贷--来自微信分享'">微信</a>
+      <a target="_blank" :href="'http://www.jiathis.com/send/?webid=cqq&url='+phone+'&title=富通贷--来自QQ好友分享'">QQ好友</a>
+      <a target="_blank" :href="'http://www.jiathis.com/send/?webid=qzone&url='+phone+'&title=富通贷--来自QQ空间分享'">QQ空间</a>
+      <a target="_blank" :href="'http://www.jiathis.com/send/?webid=tsina&url='+phone+'&title=富通贷--来自微博分享'">微博</a>
     </div>
     <h1><span>方式二:</span>请让好友扫描下面二维码</h1>
     <div>
-     <img src="./../../assets/images/find/ewm.png">
+     <img :src='invite_link + phone'>
     </div>
   </div>
 </template>
@@ -18,7 +18,12 @@
   export default {
     data () {
       return {
-        user: '18770009131'
+        invite_link: 'http://qr.liantu.com/api.php?w=250&text='
+      }
+    },
+    computed: {
+      phone () {
+        return window.location.origin + window.location.pathname + '?inviter=' + this.$store.state.userInfo.phone
       }
     },
     created () {

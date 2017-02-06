@@ -10,35 +10,35 @@
       </div>
       <div class="bitList" :class='type' :style='{height: height+"px"}'>
         <div class="xsb">
-          <div class="item" :class='{unavailable: i>2}' v-for="i in 4">
-            <div class="tag">{{i* 10}}</div>
+          <div class="item" :class='{unavailable: i.isDisable!=0}' :data-id='i.id' v-for="i in hongbao">
+            <div class="tag">{{i.money}}</div>
             <div class="discription">
-              <p>新手注册-10元红包</p>
-              <p>单笔1000元可用</p>
-              <p>可购买转贷项目</p>
-              <p>有效时间2016.05.29-2016.06.27</p>
+              <p>{{i.activityName}}</p>
+              <p>{{i.redRule}}</p>
+              <p>{{i.borrowType}}</p>
+              <p>有效时间{{i.startTime}}-{{i.endTime}}</p>
             </div>
           </div>
         </div>
         <div class="zdxm">
-          <div class="item" :class='{unavailable: i>1}' v-for="i in 3">
-            <div class="tag">{{i* 10}}</div>
+          <div class="item" :class='{unavailable: i.isDisable!=0}' :data-id='i.id' v-for="i in daijinquan">
+            <div class="tag">{{i.money}}</div>
             <div class="discription">
-              <p>新手注册-10元红包</p>
-              <p>单笔1000元可用</p>
-              <p>可购买转贷项目</p>
-              <p>有效时间2016.05.29-2016.06.27</p>
+              <p>{{i.activityName}}</p>
+              <p>{{i.redRule}}</p>
+              <p>{{i.borrowType}}</p>
+              <p>有效时间{{i.startTime}}-{{i.endTime}}</p>
             </div>
           </div>
         </div>
         <div class="dct">
-          <div class="item" :class='{unavailable: i>4}' v-for="i in 5">
-            <div class="tag">{{2 * i -1}}</div>
+          <div class="item" :class='{unavailable: i.isDisable!=0}' :data-id='i.id' v-for="i in jiaxiquan">
+            <div class="tag">{{i.money.slice(0,i.money.length-1)}}</div>
             <div class="discription">
-              <p>投资5000-1%加息券</p>
-              <p>单笔5000元可用</p>
-              <p>可购买转贷项目</p>
-              <p>有效时间2016.05.29-2016.06.27</p>
+              <p>{{i.activityName}}</p>
+              <p>{{i.redRule}}</p>
+              <p>{{i.borrowType}}</p>
+              <p>有效时间{{i.startTime}}-{{i.endTime}}</p>
             </div>
           </div>
         </div>
@@ -49,13 +49,18 @@
 
 <script>
   import {Tabbar, TabItem} from 'mint-ui'
+  import {mapState} from 'vuex'
   export default {
     data () {
       return {
         type: '红包',
-        height: ''
+        height: '',
+        jiaxiquan: '',
+        hongbao: '',
+        daijinquan: ''
       }
     },
+    computed: mapState(['pkey']),
     watch: {
       type (v) {
         this.height = v === '红包' ? document.querySelector('.xsb').clientHeight : v === '代金券' ? document.querySelector('.zdxm').clientHeight : document.querySelector('.dct').clientHeight
@@ -69,6 +74,24 @@
     created () {
       this.$store.dispatch('setHeader', {show: true, fixed: true, background: '#fff', title: '我的福利', color: ''})
       this.$store.dispatch('hideFooter')
+      if (this.session('isLogin')) {
+        // 如果登录了,请求用户账户信息
+        let user = this.session('userInfo')
+        this.$POST('/ua/ured.json', {uid: user.uid, pkey: this.pkey, md5str: this.md5(this.pkey + user.uid)}).then(res => {
+          if (parseInt(res.code) === 200) {
+            this.$nextTick(() => {
+              this.hongbao = res.redPackets
+              this.daijinquan = res.vouchers
+              this.jiaxiquan = res.rateCoupons
+            })
+          } else {
+            this.toast(res.msg)
+          }
+        }).catch(err => {
+          console.log(err.toString())
+          this.toast('网络请求错误!请重试!')
+        })
+      }
     },
     beforeRouteLeave (to, from, next) {
       this.$store.dispatch('setHeader', {show: false, title: '富通贷', background: '#fff'})
@@ -160,6 +183,9 @@
           flex: 1 1 70%;
           align-self: center;
           padding: 0 $big-space * 2;
+          p {
+            font-size: 0.24rem;
+          }
           p:first-child {
             font-size: 0.32rem;
             margin-bottom: $big-space;

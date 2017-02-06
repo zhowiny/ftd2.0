@@ -1,8 +1,8 @@
 <template>
   <transition name='slideIn' tag='div'>
     <div class="detail slideIn">
-      <h1>新手标购买{{$route.params.id}}</h1>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi blanditiis debitis delectus dolore ducimus, enim esse ex exercitationem incidunt inventore ipsam iusto laborum, molestias nam, natus nemo nihil perspiciatis quasi?</p>
+      <h1>{{$route.params.title}}</h1>
+      <p>{{$route.params.msg}}</p>
     </div>
   </transition>
 </template>
@@ -19,6 +19,10 @@
   .detail {
     border-top: 1px solid $bodycolor;
     padding: $big-space * 2;
+    h1 {
+      font-size: 0.36rem;
+      margin-bottom: $big-space;
+    }
     p {
       text-align: left;
       text-indent: 2em;

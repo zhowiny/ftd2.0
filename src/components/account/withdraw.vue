@@ -4,36 +4,36 @@
       <div class="withdraw" :class='{active:active}'>
         <div class="apply">
           <mt-cell title="可用余额" >
-            <div class="cell"><span>¥0.00</span>元</div>
+            <div class="cell"><span>{{account.acountAmount}}</span>元</div>
           </mt-cell>
           <mt-cell title="免费提现次数" >
-            <div class="cell">1</div>
+            <div class="cell">{{account.withFreeNum}}</div>
           </mt-cell>
           <mt-cell title="提现银行卡" >
-            <div class="cell">中国工商银行 (*9999)</div>
+            <div class="cell" style="font-size:0.28em">{{account.bankName + '　' + account.bankNo}}</div>
           </mt-cell>
           <div class="space"></div>
           <mt-cell title="提现金额" >
             <div class="cell">
-              <input type="text" placeholder="请输入提现金额"/>元
+              <input type="text" v-model.number="money" placeholder="请输入提现金额"/>元
             </div>
           </mt-cell>
           <mt-cell title="提现手续费" >
-            <div class="cell"><span>0.00</span>元</div>
+            <div class="cell"><span>{{money < 1e2 ? '0.00' : money <= 5e4 ? '2.00' : money <= 1e5 ? '4.00' : money <= 15e4 ? '6.00' : money <= 2e5 ? '8.00' : '10.00'}}</span>元</div>
           </mt-cell>
           <mt-cell title="实际到账金额" >
-            <div class="cell"><span>0.00</span>元</div>
+            <div class="cell"><span>{{money || '0.00'}}</span>元</div>
           </mt-cell>
           <div class="space"></div>
           <mt-cell title="支付密码" >
             <div class="cell">
-              <input type="password" placeholder="请输入支付密码"/>
+              <input type="password" v-model="payPwd" placeholder="请输入支付密码"/>
             </div>
           </mt-cell>
           <mt-cell title="验证码" >
             <div class="cell">
-              <input type="password" placeholder="请输入短信验证码"/>
-              <a class="btn" @click="countdown">{{countText}}</a>
+              <input type="text" v-model="verifyCode" placeholder="请输入短信验证码"/>
+              <a class="btn" @click="getVerifyCode">{{countText}}</a>
             </div>
           </mt-cell>
           <button class="withdraw" @click="widthdraw">提现申请</button>
@@ -44,10 +44,10 @@
             <p>您的提现申请已成功提交</p>
           </div>
           <mt-cell title="提现至" >
-            <div class="cell">中国工商银行 (*9999)</div>
+            <div class="cell">{{account.bankName + '　' + account.bankNo}}</div>
           </mt-cell>
           <mt-cell title="提现金额" >
-            <div class="cell"><span>0.00</span>元</div>
+            <div class="cell"><span>{{money || '0.00'}}</span>元</div>
           </mt-cell>
           <mt-cell title="预计到账时间" >
             <div class="cell">1-3个工作日</div>
@@ -62,34 +62,98 @@
 </template>
 <script>
   import {Cell} from 'mint-ui'
+  import {mapState} from 'vuex'
   export default {
     data () {
       return {
         active: false,
         countText: '获取',
         time: '',
-        clickable: true
+        clickable: true,
+        money: '',
+        payPwd: '',
+        verifyCode: ''
       }
     },
+    computed: mapState(['userInfo', 'pkey', 'account']),
     methods: {
       widthdraw () {
-        this.active = true
-        this.$store.dispatch('setHeader', {title: '完成提现'})
+        if (!this.money) {
+          this.toast('金额不能为空!')
+          return
+        }
+        if (this.money <= 100) {
+          this.toast('提现金额最少为100!')
+          return
+        }
+        if (!this.payPwd) {
+          this.toast('交易密码不能为空!!')
+          return
+        }
+        if (!this.verifyCode) {
+          this.toast('验证码不能为空!!')
+          return
+        }
+        if (!/^\d+(\.[\d]{1,2})?$/.test(this.money) || this.money <= 0) {
+          this.toast('请输入正确的金额!')
+          return
+        }
+        if (this.money > this.$route.query.account) {
+          this.toast('账户余额不足!')
+          return
+        }
+        this.$POST('/ua/uwith.json', {
+          uid: this.userInfo.uid || '',
+          money: this.money,
+          verifyCode: this.verifyCode,
+          payPwd: this.payPwd,
+          md5str: this.md5(this.pkey + (this.userInfo.uid || '') + this.money)
+        }).then(res => {
+          if (parseInt(res.code) === 200) {
+            this.active = true
+            this.$store.dispatch('setHeader', {title: '完成提现'})
+          } else {
+            this.toast(res.msg)
+          }
+        }).catch(err => {
+          this.toast(err.toString())
+        })
       },
       countdown () {
         // 获取验证倒计时
-        if (!this.clickable) return
-        this.clickable = false
-        this.countText = 6
+        this.countText = 60
         this.time = setInterval(() => {
           if (this.countText <= 0) {
-            this.countText = '重新获取'
+            this.countText = '获取'
             clearInterval(this.time)
             this.clickable = true
             return
           }
           this.countText --
         }, 1000)
+      },
+      getVerifyCode () {
+        // 获取验证码
+        if (!this.clickable) return
+        this.clickable = false
+        this.$POST('/sendmsg.json', {
+          uid: this.userInfo.uid || '',
+          uphone: this.phone,
+          type: 0,
+          pkey: this.pkey,
+          md5str: this.md5(this.pkey + (this.userInfo.uid || '') + this.phone)
+        }).then(res => {
+          if (parseInt(res.code) === 200) {
+            this.toast('发送成功!')
+            this.countdown()
+          } else {
+            this.toast(res.msg)
+            this.clickable = true
+          }
+        }).catch(err => {
+          this.toast(err.toString())
+          this.clickable = true
+        })
       }
     },
     beforeRouteLeave (to, from, next) {

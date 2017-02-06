@@ -13,24 +13,24 @@
       <img src="./../assets/images/mine/user.png">
       <p class="money">
         <span>账户总资产(元)</span><br>
-        <b>0.00</b>
+        <b>{{account.totalAmount || '--.--'}}</b>
       </p>
       <div>
         <p class="money">
-          <span>账户总资产(元)</span><br>
-          <b>0.00</b>
+          <span>可用余额(元)</span><br>
+          <b>{{account.acountAmount || '--.--'}}</b>
         </p>
         <p class="money">
-          <span>账户总资产(元)</span><br>
-          <b>0.00</b>
+          <span>今日收益(元)</span><br>
+          <b>{{account.todayAmount || '--.--'}}</b>
         </p>
       </div>
       <div>
         <div class="btn">
-          <router-link tag='button' to='/chrage'>充值</router-link>
+          <button @click="chrage">充值</button>
         </div>
         <div class="btn">
-          <router-link tag='button' to='/withdraw'>提现</router-link>
+          <button @click="withdraw">提现</button>
         </div>
       </div>
     </div>
@@ -74,13 +74,51 @@
   </div>
 </template>
 <script>
+import {mapState} from 'vuex'
+import {showModal} from './commons/modal'
 export default {
-  data () {
-    return {
-      auth: 'zhowiny'
+  computed: mapState(['account', 'pkey', 'userInfo']),
+  methods: {
+    withdraw () {
+      if (!this.checkStatus()) return
+      this.$router.push({path: '/withdraw'})
+    },
+    chrage () {
+      if (!this.checkStatus()) return
+      this.$router.push({path: '/chrage'})
+    },
+    checkStatus () {
+      if (!this.account.idcard) {
+        showModal({content: '为了保障您的资金安全,购买前请实名认证', title: '实名认证', path: '/set/authenticate'})
+        return false
+      } else if (~~this.account.isPayPwd === 0) {
+        showModal({content: '为了您的资金安全,请设置交易密码!', title: '交易密码', path: '/set/password/change/1/1'})
+        return false
+      } else if (!this.account.bankName) {
+        showModal({content: '您还未绑定银行卡!请绑定银行卡!', title: '绑定银行', path: '/set/bankcard'})
+        return false
+      } else {
+        return true
+      }
     }
   },
-  components: {
+  created () {
+    if (!this.session('isLogin')) return
+      // 如果登录了,请求用户账户信息
+//      this.indicator.open()
+    let user = this.userInfo
+    this.$POST('/ua/uacount.json', {uid: user.uid, phone: user.phone, md5str: this.md5(this.pkey + user.phone)}).then(res => {
+      if (parseInt(res.code) === 200) {
+        this.session({'account': res.data})
+        this.$nextTick(() => {
+          this.$store.dispatch('setAccount', res.data)
+        })
+      } else {
+        this.toast(res.msg)
+      }
+    }).catch(err => {
+      this.toast(err.toString())
+    })
   }
 }
 </script>

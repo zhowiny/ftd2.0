@@ -3,22 +3,22 @@
     <div class="bit-info">
       <div>
         <span class="status">进行中</span>
-        <h3>新手标-201605期</h3>
+        <h3>{{data.title}}</h3>
         <div class="bit-data">
           <div class="row">
-            <p><span class="rate">9.80</span><br>年化利率</p>
-            <p><span>18</span><br>期限 (天)</p>
+            <p><span class="rate">{{data.rate}}</span><br>年化利率</p>
+            <p><span>{{data.term}}</span><br>期限 ({{data.termType}})</p>
           </div>
           <div class="row">
-            <p class="progress">
-              <span></span>
+            <p class="progress" >
+              <span :style='{width: (data.process || 0) + "%"}'></span>
             </p>
-            <p><b>已加入30%</b></p>
+            <p><b>已加入{{data.process}}%</b></p>
           </div>
           <div class="row">
-            <p><span>150,0000</span><br>产品总额</p>
-            <p><span>1000</span><b>元</b><br>起投金额</p>
-            <p><b>预计:</b> <span>T+1</span><br>回款日期</p>
+            <p><span>{{data.totalAmount}}</span><br>产品总额</p>
+            <p><span>{{data.minAmount}}</span><b>元</b><br>起投金额</p>
+            <p><b></b> <span>{{data.repayDate}}</span><br>回款日期</p>
           </div>
         </div>
       </div>
@@ -27,28 +27,28 @@
       <div class="form-row">
         <span>购　　买:</span>
         <div>
-          <input placeholder="输入购买金额"/>
+          <input type="text" v-model.number="amount" placeholder="输入购买金额"/>
         </div>
       </div>
       <div class="form-row">
         <span>预期收益:</span>
         <div class="disabled">
-          <input disabled value="0.00"/>
+          <input disabled :value="(amount * data.rate / 100 / 365 * data.term).toFixed(2)"/>
         </div>
       </div>
       <div class="form-row">
         <span>优　　惠:</span>
         <div class="selected" @click.self="toggleSelected" :class='{active:selected}'>
-          <i v-text="selectedVal"></i>
+          <i v-text="selectedVal.name"></i>
           <ul :class='{active:selected}'>
-            <li v-for="i in mockData" :class='{active: i==selectedVal}' @click.self="selecte(i)">{{i}}</li>
+            <li v-for="i in coupon" :class='{active: i==selectedVal}' @click.self="selecte(i)">{{i.name}}</li>
           </ul>
         </div>
       </div>
       <div class="form-row">
         <span>账户余额:</span>
         <div class="disabled">
-          <input disabled value="0.00"/>
+          <input disabled :value="data.accountAmount"/>
         </div>
       </div>
     </div>
@@ -56,10 +56,7 @@
       <h3 @click="slideToggle(0)" :class='{active:status[0]}'><span/>产品介绍</h3>
       <transition name='slideToggle'>
         <div class="content" v-show="status[0]">
-          债权转让运作模式，多重保障安全;<br>
-          一次性投资，到期回收本金和收益;<br>
-          投资起步低，100元即可加入，每次100元递增;<br>
-          投资回本期限短，到帐快。
+          {{data.borrowInfo}}
         </div>
       </transition>
       <h3 @click="slideToggle(1)" :class='{active:status[1]}'><span/>借款企业基本信息</h3>
@@ -68,27 +65,27 @@
           <ul>
             <li>
               <div>企业名</div>
-              <div>娄底市青艺文化传媒有限公司</div>
+              <div>{{data.enterpriseInfo.businessName}}</div>
             </li>
             <li>
               <div>营业执照号码</div>
-              <div>431300000131131121</div>
+              <div>{{data.enterpriseInfo.businessNum}}</div>
             </li>
             <li>
               <div>注册资本</div>
-              <div>50万</div>
+              <div>{{data.enterpriseInfo.registerCapital}}</div>
             </li>
             <li>
               <div>代表人</div>
-              <div>陈晓泉</div>
+              <div>{{data.enterpriseInfo.representative}}</div>
             </li>
             <li>
               <div>组织机构代码</div>
-              <div>59104166-X</div>
+              <div>{{data.enterpriseInfo.orgCode}}</div>
             </li>
             <li>
               <div>成立日期</div>
-              <div>2012年3月20日</div>
+              <div>{{data.enterpriseInfo.businessDate}}-X</div>
             </li>
           </ul>
         </div>
@@ -102,37 +99,11 @@
               <div>投标金额 (元)</div>
               <div>时间</div>
             </li>
-            <li>
-              <div>187****9131</div>
-              <div>100,000,000.00</div>
-              <div>2015.06.30 10:15:12</div>
+            <li v-for="detail in annal">
+              <div>{{detail.userName}}</div>
+              <div>{{detail.amount}}</div>
+              <div>{{detail.time}}</div>
             </li>
-            <li>
-              <div>187****9131</div>
-              <div>100,000,000.00</div>
-              <div>2015.06.30 10:15:12</div>
-            </li>
-            <li>
-              <div>187****9131</div>
-              <div>100,000,000.00</div>
-              <div>2015.06.30 10:15:12</div>
-            </li>
-            <li>
-              <div>187****9131</div>
-              <div>100,000,000.00</div>
-              <div>2015.06.30 10:15:12</div>
-            </li>
-            <li>
-              <div>187****9131</div>
-              <div>100,000,000.00</div>
-              <div>2015.06.30 10:15:12</div>
-            </li>
-            <li>
-              <div>187****9131</div>
-              <div>100,000,000.00</div>
-              <div>2015.06.30 10:15:12</div>
-            </li>
-
           </ul>
         </div>
       </transition>
@@ -146,15 +117,15 @@
         <div class="password-content">
           <div>
             <span>交易密码:</span>
-            <input type="text" placeholder="请输入交易密码">
+            <input type="password" v-model="payPwd" placeholder="请输入交易密码">
           </div>
           <div>
-            <input type="password" placeholder="请输入短信验证码">
-            <span @click="countdown">{{countText}}</span>
+            <input type="text" v-model="verifyCode" placeholder="请输入短信验证码">
+            <span @click="getVerifyCode">{{countText}}</span>
           </div>
         </div>
         <div class="modal-btn">
-          <div class="confirme" >确定</div>
+          <div class="confirme" @click="buy">确定</div>
         </div>
       </div>
     </div>
@@ -162,40 +133,79 @@
 </template>
 <script>
   import {showModal} from './../commons/modal.js'
+  import {mapState} from 'vuex'
   export default {
     data () {
       return {
         selected: false,
-        selectedVal: '代金券抵扣',
-        mockData: ['5%加息券', '5块钱代金券', '2%加息券', '10%加息券(7天)'],
+        coupon: [{
+          amount: '',
+          name: '代金券折扣',
+          aid: ''
+        }],
         status: [false, false, false],
-        passwordBox: true,
+        passwordBox: false,
         countText: '获取',
         time: '',
-        clickable: true
+        clickable: true,
+        annal: '',
+        data: {
+          enterpriseInfo: ''
+        },
+        selectedVal: { // 选中的优惠券
+          amount: '',
+          name: '代金券折扣',
+          aid: ''
+        },
+        amount: '',
+        verifyCode: '',
+        payPwd: ''
       }
     },
+    computed: mapState(['pkey', 'userInfo', 'account', 'isLogin']),
     methods: {
       toggleSelected () {
         this.selected = !this.selected
       },
       selecte (val) {
         this.selectedVal = val
+        this.selected = false // 选中之后隐藏选择框
       },
       slideToggle (index) {
         this.status.splice(index, 1, !this.status[index])
       },
       modal () {
-//        showModal({content: '为了保障您的资金安全,购买前请实名认证.', title: '实名认证'})
-        showModal({content: '您当前购买产品的账户余额不足,请先充值!', title: '充值'})
+        if (~~this.data.isRealName === 0) {
+          showModal({content: '为了保障您的资金安全,购买前请实名认证', title: '实名认证', path: '/set/authenticate'})
+          return
+        }
+        if (~~this.data.isBindCard === 0) {
+          showModal({content: '您还未绑定银行卡!请绑定银行卡!', title: '绑定银行', path: '/set/bankcard'})
+          return
+        }
+        if (~~this.data.isPayPwd === 0) {
+          showModal({content: '为了您的资金安全,请设置交易密码!', title: '交易密码', path: '/set/password/change/1/1'})
+          return
+        }
+        if (!this.amount) {
+          this.toast('请输入购买金额!')
+          return
+        }
+        if (!/^\d+(\.[\d]{1,2})?$/.test(this.amount) || this.amount < this.data.minAmount) {
+          this.toast('请输入正确的金额!')
+          return
+        }
+        if (this.data.accountAmount < this.amount) {
+          this.toast('账户余额不足!请及时充值!')
+          return
+        }
+        this.passwordBox = true
       },
       hidePasswordBox () {
         this.passwordBox = false
       },
       countdown () {
         // 获取验证倒计时
-        if (!this.clickable) return
-        this.clickable = false
         this.countText = 60
         this.time = setInterval(() => {
           if (this.countText <= 0) {
@@ -206,11 +216,114 @@
           }
           this.countText --
         }, 1000)
+      },
+      getVerifyCode () {
+        // 获取验证码
+        if (!this.clickable) return
+        this.clickable = false
+        this.$POST('/sendmsg.json', {
+          uid: this.userInfo.uid || '',
+          uphone: this.phone,
+          type: 0,
+          pkey: this.pkey,
+          md5str: this.md5(this.pkey + (this.userInfo.uid || '') + this.phone)
+        }).then(res => {
+          if (parseInt(res.code) === 200) {
+            this.toast('发送成功!')
+            this.countdown()
+          } else {
+            this.toast(res.msg)
+            this.clickable = true
+          }
+        }).catch(err => {
+          this.toast(err.toString())
+          this.clickable = true
+        })
+      },
+      buy () {
+        if (!this.payPwd || !this.verifyCode) {
+          this.toast('交易密码或验证码不能为空!')
+          return
+        }
+        this.$POST('/ua/upay.json', {
+          bid: this.$route.params.bid,
+          uid: this.userInfo.uid,
+          money: this.amount,
+          rid: this.selectedVal.aid || '',
+          payPwd: this.payPwd,
+          verifyCode: this.verifyCode,
+          md5str: this.md5(this.pkey + this.userInfo.uid + this.amount + this.$route.params.bid)
+        }).then(res => {
+          if (parseInt(res.code) === 200) {
+            this.toast({message: res.msg, duration: 2000})
+            setTimeout(() => {
+              window.location.reload()
+            }, 2e3)
+          } else {
+            this.toast(res.msg)
+          }
+        }).catch(err => {
+          this.toast(err.toString())
+        })
+      },
+      记录 () {
+        this.$POST('/investList.json', {
+          bid: this.$route.params.bid,
+          page: 1,
+          pageSize: 10,
+          md5str: this.md5(this.pkey + this.$route.params.bid)
+        }).then(res => {
+          if (parseInt(res.code) === 200) {
+            this.$nextTick(() => {
+              this.annal = res.data.data
+            })
+          } else {
+            this.toast(res.msg)
+          }
+        }).catch(err => {
+          this.toast(err.toString())
+        })
       }
     },
     created () {
       this.$store.dispatch('setHeader', {show: true, fixed: false, background: 'transparent', title: '标详情', color: '#fff'})
       this.$store.dispatch('hideFooter')
+//         如果登录了,请求标详情
+      this.$POST('/bitinfo.json', {bid: this.$route.params.bid, md5str: this.md5(this.pkey + this.$route.params.bid)}).then(res => {
+        if (parseInt(res.code) === 200) {
+          this.$nextTick(() => {
+            this.data = res.data
+            this.coupon = this.coupon.concat(res.data.redPackets)
+          })
+        } else {
+          this.toast(res.msg)
+        }
+      }).catch(err => {
+        this.toast(err.toString())
+      })
+      this.记录()
+    },
+    beforeRouteLeave (to, from, next) {
+      this.$store.dispatch('setHeader', {show: true, fixed: true, title: '富通贷', background: '#fff', color: ''})
+//      this.$store.dispatch('showFooter')
+      if ((~to.path.indexOf('/set') && !this.account) || ~to.path.indexOf('/chrage')) {
+        let user = this.userInfo
+        this.$POST('/ua/uacount.json', {uid: user.uid, phone: user.phone, md5str: this.md5(this.pkey + user.phone)}).then(res => {
+          if (parseInt(res.code) === 200) {
+            this.session({'account': res.data})
+            this.$nextTick(() => {
+              this.$store.dispatch('setAccount', res.data)
+              next()
+            })
+          } else {
+            this.toast(res.msg)
+          }
+        }).catch(err => {
+          this.toast(err.toString())
+        })
+      } else {
+        next()
+      }
     }
   }
 </script>
@@ -374,6 +487,9 @@
       z-index: 1000;
       top: 100%;
       left: 0;
+      max-height: 3rem;
+      overflow-y: auto;
+      overflow-x: hidden;
       width: 100%;
       background: rgba(222, 222, 222, .8);
       text-align: left;
@@ -450,6 +566,7 @@
     transition: all .3s;
     transform-origin: top center;
     overflow: hidden;
+    word-break: break-word;
     > ul {
       border: 1px solid $lightColor;
       border-bottom: none;

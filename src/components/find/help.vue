@@ -7,26 +7,26 @@
           <span>新手必读</span>
           <i class="leftArrow" />
         </router-link>
-        <!--<router-link tag='li' to='/activity'>
+        <router-link tag='li' to='/helpCenter/reg'>
           <span class="icon register" />
           <span>注册绑卡</span>
           <i class="leftArrow" />
         </router-link>
-        <router-link tag='li' to='/invite'>
+        <router-link tag='li' to='/helpCenter/operate'>
           <span class="icon operation" />
           <span>投资操作</span>
           <i class="leftArrow" />
         </router-link>
-        <router-link tag='li' to='/help'>
+        <router-link tag='li' to='/helpCenter/ensure'>
           <span class="icon income" />
           <span>收益保障</span>
           <i class="leftArrow" />
         </router-link>
-        <router-link tag='li' to='/bits'>
+        <router-link tag='li' to='/helpCenter/product'>
           <span class="icon productInfo" />
           <span>产品介绍</span>
           <i class="leftArrow" />
-        </router-link>-->
+        </router-link>
       </ul>
     </div>
   </transition>

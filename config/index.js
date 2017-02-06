@@ -16,6 +16,7 @@ module.exports = {
     productionGzip: false,
     productionGzipExtensions: ['js', 'css'],
     httpUrl: 'http://ifa.futongdai.com/FTD-APP'
+    // httpUrl: 'http://192.168.1.67:8082/FTD-APP'
   },
   dev: {
     env: require('./dev.env'),
@@ -28,7 +29,9 @@ module.exports = {
     // (https://github.com/webpack/css-loader#sourcemaps)
     // In our experience, they generally work as expected,
     // just be aware of this issue when enabling this option.
-    cssSourceMap: false,
-    httpUrl: 'http://192.168.1.72:8081'
+    cssSourceMap: true,
+    // httpUrl: 'http://192.168.1.72:8081/'
+    // httpUrl: 'http://192.168.1.67:8082/FTD-APP'
+    httpUrl: 'http://ifa.futongdai.com/FTD-APP'
   }
 }

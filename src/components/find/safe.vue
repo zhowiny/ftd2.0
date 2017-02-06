@@ -1,6 +1,6 @@
 <template>
   <transition name='slideIn' tag='div'>
-    <div class="safe slideIn" v-pre>
+    <div class="safe slideIn">
       <img src="./../../assets/images/find/safeBanner.jpg">
       <div class="cnt">
         <h3>01.投资安全</h3>

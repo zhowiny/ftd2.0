@@ -13,12 +13,12 @@
     </header>
     <div class='wrap'>
       <img src="./../../assets/images/mine/user.png">
-      <p>100积分</p>
-      <div>签到成功,今天已领取3积分!</div>
+      <p>{{jifen || '----'}}积分</p>
+      <div>签到成功,今天已领取{{checkDays == 6? (checkDays * 2) : (checkDays == 7 ? 15 : (checkDays * 2 - 1))}}积分!</div>
     </div>
     <div class="check-in">
       <div v-for="i in 7">
-        <p :class='{active: i<=3}'>积分 +{{i == 6?i * 2:i * 2 - 1}}</p>
+        <p :class='{active: i <= checkDays, add: i == checkDays}' :data-add='"+" + (i == 6? (i * 2) : (i == 7 ? 15 : (i * 2 - 1)))'>积分 +{{i == 6? (i * 2) : (i == 7 ? 15 : (i * 2 - 1))}}</p>
         <span>第{{i}}天</span>
       </div>
     </div>
@@ -28,6 +28,12 @@
   import {Button} from 'mint-ui'
   import {showModal} from './../commons/modal'
   export default {
+    data () {
+      return {
+        checkDays: 0,
+        jifen: ''
+      }
+    },
     methods: {
       guide () {
         showModal({
@@ -38,10 +44,42 @@
                     <p>4.积分可兑换代金券投资抵扣使用;</p>
                     <p>5.代金券在我的福利中查看, 并使用!</p>`
         })
+      },
+      checkin () {
+        let uid = this.$store.state.userInfo.uid
+        let pkey = this.$store.state.pkey
+        this.$POST('/ua/ucheck.json', {
+          uid: uid,
+          md5str: this.md5(pkey + uid)
+        }).then(res => {
+          if (parseInt(res.code) === 200) {
+            this.checkDays = ~~res.data.checkDays
+          } else {
+            this.toast(res.msg)
+          }
+        }).catch(err => {
+          this.toast(err.toString())
+        })
       }
     },
     created () {
       this.$store.dispatch('hideFooter')
+      let uid = this.$store.state.userInfo.uid
+      let pkey = this.$store.state.pkey
+      this.$POST('/ua/advact.json', {
+        uid: uid,
+        pkey: pkey,
+        md5str: this.md5(pkey + uid)
+      }).then(res => {
+        if (parseInt(res.code) === 200) {
+          this.jifen = res.data.jifen
+        } else {
+          this.toast(res.msg)
+        }
+      }).catch(err => {
+        this.toast(err.toString())
+      })
+      this.checkin()
     },
     destroyed () {
       this.$store.dispatch('showFooter')
@@ -111,9 +149,13 @@
       color: $lightColor;
       background: url("./../../assets/images/mine/checkIn.png");
       background-size: 100%;
+      /*filter: grayscale(100%);*/
+      transition: all .5s;
+      position: relative;
     }
     p.active {
       color: $mainColor;
+      /*filter: grayscale(0);*/
       background-image: url("./../../assets/images/mine/checkIn-active.png");
     }
   }

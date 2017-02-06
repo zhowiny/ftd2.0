@@ -2,17 +2,17 @@
   <transition name='slideIn'>
     <div class="slideIn">
       <ul class="list" >
-        <router-link tag='li' :to="{ path: '/assets/annal', query: { type: '新手标' }}">
+        <router-link tag='li' :to="{ path: '/assets/annal', query: { type: '新手标', id: 12 }}">
           <span class="icon icon1" />
           <span>新手标</span>
           <i class="leftArrow" />
         </router-link>
-        <router-link tag='li' :to="{ path: '/assets/annal', query: { type: '转贷项目' }}">
+        <router-link tag='li' :to="{ path: '/assets/annal', query: { type: '转贷项目', id: 11 }}">
           <span class="icon icon2" />
           <span>转贷项目</span>
           <i class="leftArrow" />
         </router-link>
-        <router-link tag='li' :to="{ path: '/assets/annal', query: { type: '定存通' }}">
+        <router-link tag='li' :to="{ path: '/assets/annal', query: { type: '定存通', id: 1 }}">
           <span class="icon icon3" />
           <span>定存通</span>
           <i class="leftArrow" />

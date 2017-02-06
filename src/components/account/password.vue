@@ -1,10 +1,18 @@
 <template>
   <transition name='slideIn'>
     <div class="slideIn set">
-      <mt-cell title="修改支付密码" is-link to=''/>
-      <mt-cell title="忘记支付密码" is-link to=''/>
-      <mt-cell title="修改登录密码" is-link />
-      <mt-cell title="忘记登录密码" is-link />
+      <router-link :to="{ name: 'password', params: { type: 1, tag:0 }}" >
+        <mt-cell title="修改交易密码" is-link />
+      </router-link>
+      <router-link :to="{ name: 'password', params: { type: 1, tag:1 }}" >
+        <mt-cell title="重置交易密码" is-link />
+      </router-link>
+      <router-link :to="{ name: 'password', params: { type: 0, tag:0 }}" >
+        <mt-cell title="修改登录密码" is-link />
+      </router-link>
+      <router-link :to="{ name: 'password', params: { type: 0, tag:1 }}" >
+        <mt-cell title="忘记登录密码" is-link />
+      </router-link>
     </div>
   </transition>
 </template>

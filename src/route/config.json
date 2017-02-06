@@ -4,6 +4,18 @@
     "component": "/index.vue"
   },
   {
+    "path": "/proclamation",
+    "component": "/find/message.vue"
+  },
+  {
+    "path": "/proclamation/detail",
+    "component": "/find/messageDetail.vue"
+  },
+  {
+    "path": "/login",
+    "component": "/login.vue"
+  },
+  {
     "path": "/bits",
     "component": "/bits.vue"
   },
@@ -37,6 +49,19 @@
     "component": "/account/password.vue"
   },
   {
+    "name": "password",
+    "path": "/set/password/change/:type/:tag",
+    "component": "/account/change.vue"
+  },
+  {
+    "path": "/set/success",
+    "component": "/account/success.vue"
+  },
+  {
+    "path": "/set/email",
+    "component": "/account/email.vue"
+  },
+  {
     "path": "/chrage",
     "component": "/account/chrage.vue"
   },
@@ -62,7 +87,7 @@
   },
   {
     "name": "messageDetail",
-    "path": "/message/detail/:id",
+    "path": "/message/detail/:title/:msg",
     "component": "/mine/messageDetail.vue"
   },
   {
@@ -109,6 +134,22 @@
   {
     "path": "/helpCenter/noviceRead",
     "component": "/find/noviceRead.vue"
+  },
+  {
+    "path": "/helpCenter/reg",
+    "component": "/find/reg.vue"
+  },
+  {
+    "path": "/helpCenter/operate",
+    "component": "/find/operate.vue"
+  },
+  {
+    "path": "/helpCenter/ensure",
+    "component": "/find/ensure.vue"
+  },
+  {
+    "path": "/helpCenter/product",
+    "component": "/find/product.vue"
   },
   {
     "path": "/contact",

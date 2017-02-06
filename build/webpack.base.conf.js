@@ -66,7 +66,7 @@ module.exports = {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url',
         query: {
-          limit: 10000,
+          limit: 1000,
           name: utils.assetsPath('img/[name].[hash:7].[ext]')
         }
       },
@@ -77,10 +77,6 @@ module.exports = {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
-      },
-      {
-        test: /\.scss?$/,
-        loader: 'stylesheet-loader!style-loader!css-loader!postcss-loader'
       }
     ]
   },

@@ -44,3 +44,9 @@ button.ftd-btn {
 div.set {
   background: transparent;
 }
+.mint-indicator-wrapper {
+  font-size: 62.5%;
+}
+.mint-indicator-mask,.mint-indicator-wrapper {
+  z-index: 99999;
+}

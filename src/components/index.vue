@@ -1,18 +1,18 @@
 <template>
   <div>
-    <div class="swiper-container">
+    <div class="swiper-container" v-show="picList.length>0">
       <mt-swipe>
         <mt-swipe-item v-for='s in picList'>
           <img :src="s.picurl" @click='toUrl(s.jumpurl)'>
         </mt-swipe-item>
       </mt-swipe>
     </div>
-    <div class="announcement">
+    <router-link tag='div' to='/proclamation' class="announcement">
       <i></i>
       <p :class="{'current': scroll}" v-text="firstPageData.bordMessages[currentNews]"></p>
       <span></span>
       <p :class="{'next': scroll}" v-text="firstPageData.bordMessages[currentNews]"></p>
-    </div>
+    </router-link>
     <div class="bit" :class="'type'+(index+1)" v-for="(bit, index) in firstPageData.borrows">
       <h2>{{bit.name}} <span><i></i>{{bit.des}}</span></h2>
       <div class="cnt">
@@ -51,13 +51,24 @@
         currentNews: 0
       }
     },
-    computed: mapState(['firstPageData', 'picList']),
+    computed: mapState(['firstPageData', 'picList', 'pkey', 'userInfo']),
     methods: {
       toUrl (url) {
-        window.location.href = url
+        window.location.href = url + (this.userInfo ? '?uid=' + this.userInfo.uid : '')
+      },
+      getParams () {
+        let params = window.location.search.slice(1)
+        let obj = {}
+        params.split('&').map((param) => {
+          obj[param.split('=')[0]] = param.split('=')[1]
+        })
+        return obj
       }
     },
     created () {
+      if (this.getParams().inviter) {
+        window.location.href = window.location.origin + window.location.pathname + '#/login?tag=1&inviter=' + this.getParams().inviter
+      }
       setInterval(() => {
         this.scroll = !this.scroll
         this.currentNews++

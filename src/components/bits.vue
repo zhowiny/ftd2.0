@@ -3,9 +3,9 @@
     <div class="view slideIn">
       <div class="tab active">
         <mt-tabbar v-model="type">
-          <mt-tab-item id="新手标">新手标</mt-tab-item>
-          <mt-tab-item id="转贷项目">转贷项目</mt-tab-item>
-          <mt-tab-item id="定存通">定存通</mt-tab-item>
+          <mt-tab-item id="xinshoubiao">新手标</mt-tab-item>
+          <mt-tab-item id="zhuandaixiangmu">转贷项目</mt-tab-item>
+          <mt-tab-item id="dingcuntong">定存通</mt-tab-item>
         </mt-tabbar>
         <span :class='type'></span>
       </div>
@@ -114,13 +114,13 @@
   export default {
     data () {
       return {
-        type: '新手标',
+        type: 'xinshoubiao',
         height: ''
       }
     },
     watch: {
       type (v) {
-        this.height = v === '新手标' ? document.querySelector('.xsb').clientHeight : v === '转贷项目' ? document.querySelector('.zdxm').clientHeight : document.querySelector('.dct').clientHeight
+        this.height = v === 'xinshoubiao' ? document.querySelector('.xsb').clientHeight : v === 'zhuandaixiangmu' ? document.querySelector('.zdxm').clientHeight : document.querySelector('.dct').clientHeight
       },
       xsb (v) {
         setTimeout(() => {
@@ -211,10 +211,10 @@
       border-bottom-color: #fff;
       transition: left .8s;
     }
-    span.转贷项目 {
+    span.zhuandaixiangmu {
       left: 3.5rem;
     }
-    span.定存通 {
+    span.dingcuntong {
       left: 5.75rem;
     }
   }
@@ -237,11 +237,11 @@
     }
   }
 
-  .bitList.转贷项目 {
+  .bitList.zhuandaixiangmu {
     transform: translate3d(-33.33333%,0,0);
   }
 
-  .bitList.定存通 {
+  .bitList.dingcuntong {
     transform: translate3d(-66.666667%,0,0);
   }
 

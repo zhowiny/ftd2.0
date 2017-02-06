@@ -18,6 +18,7 @@ let showModal = options => {
     initInstance()
     document.body.appendChild(instance.$el)
   }
+  instance.path = ''
   for (let key in options) {
     instance[key] = options[key]
   }

@@ -10,26 +10,26 @@
       </div>
     </header>
     <div class="container" v-show="data">
-      <p><span>0.00</span><span>合计金额(元)</span></p>
+      <p><span>{{money}}</span><span>合计金额(元)</span></p>
       <ul>
         <li>
           <div>购买项目</div>
           <div>回款日期</div>
           <div>金额(元)</div>
         </li>
-        <li v-for="i in 8">
-          <div>转贷项目201{{i}}期</div>
-          <div>{{new Date().toLocaleString()}}</div>
-          <div>{{100*i}}</div>
+        <li v-for="i in data">
+          <div>{{i.borrowName}}</div>
+          <div>{{i.repaymentTime}}</div>
+          <div>{{i.interest}}</div>
         </li>
       </ul>
     </div>
     <div v-show="!data" class="empty">暂无记录</div>
     <div class="condition" v-show="condition" @click.self='toggleCondition'>
       <ul>
-        <li>未来全部回款</li>
-        <li>未来15日回款</li>
-        <li>未来1个月回款</li>
+        <li @click="detail(1)">未来全部回款</li>
+        <li @click="detail(2)">未来15日回款</li>
+        <li @click="detail(3)">未来1个月回款</li>
       </ul>
     </div>
   </div>
@@ -39,18 +39,39 @@
   export default {
     data () {
       return {
-        data: true,
-        condition: false
+        data: '',
+        condition: false,
+        money: '0.00'
       }
     },
     methods: {
       toggleCondition () {
         this.condition = !this.condition
+      },
+      detail (type) {
+        if (this.session('isLogin')) {
+//         如果登录了,请求下期回款
+          let uid = this.$store.state.userInfo.uid
+          let pkey = this.$store.state.pkey
+          // 用户uid,请求第几页数据pageNum(默认每一页10条数据) type 筛选 1全部, 2半个月, 3一个月
+          this.$POST('/ua/uprebits.json', {uid: uid, pageNum: 1, type: type, pkey: pkey, md5str: this.md5(pkey + uid)}).then(res => {
+            if (parseInt(res.code) === 200) {
+              this.data = res.data.data.length > 0 ? res.data.data : ''
+              this.money = res.totalSum
+            } else {
+              this.toast(res.msg)
+            }
+            this.condition = false
+          }).catch(err => {
+            this.toast(err.toString())
+          })
+        }
       }
     },
     created () {
       this.$store.dispatch('setHeader', {show: false, title: '富通贷', background: '#fff'})
       this.$store.dispatch('hideFooter')
+      this.detail(1)
     },
     components: {
       [Button.name]: Button
@@ -93,6 +114,7 @@
         padding: 0 $big-space * 2;
         height: 1rem;
         border-bottom: 1px solid $bodycolor;
+        font-size: 0.24rem;
         div {
           &:first-child {
             flex: 0 0 31%;

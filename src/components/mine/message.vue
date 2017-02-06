@@ -1,27 +1,22 @@
 <template>
   <transition name='slideIn'>
     <div class="slideIn">
-      <router-link :to="{ name: 'messageDetail', params: { id: 2 }}">
-        <mt-cell title="新手标购买" is-link />
-      </router-link>
-      <router-link :to="{ name: 'messageDetail', params: { id: 24 }}">
-        <mt-cell title="活动信息--投资领大奖" is-link />
-      </router-link>
-      <router-link :to="{ name: 'messageDetail', params: { id: 0 }}">
-        <mt-cell title="周末限时福利" is-link />
-      </router-link>
-      <router-link :to="{ name: 'messageDetail', params: { id: 5 }}">
-        <mt-cell title="邀请好友--送红包" is-link />
-      </router-link>
-      <router-link :to="{ name: 'messageDetail', params: { id: 3 }}">
-        <mt-cell title="5%的加息券已经到手" is-link />
+      <router-link v-for='data in lists' :to="{ name: 'messageDetail', params: {title: data.title, msg: data.msg}}">
+        <mt-cell is-link ><span slot='title'>{{data.title}}</span></mt-cell>
       </router-link>
     </div>
   </transition>
 </template>
 <script>
   import {Cell} from 'mint-ui'
+  import {mapState} from 'vuex'
   export default {
+    data () {
+      return {
+        lists: ''
+      }
+    },
+    computed: mapState(['pkey']),
     beforeRouteLeave (to, from, next) {
       if (!~to.path.indexOf('/message')) {
         this.$store.dispatch('setHeader', {show: false, title: '富通贷', background: '#fff'})
@@ -32,6 +27,22 @@
     created () {
       this.$store.dispatch('setHeader', {show: true, background: '#fff', title: '我的消息'})
       this.$store.dispatch('hideFooter')
+      if (this.session('isLogin')) {
+//         请求站内信
+        let user = this.session('userInfo')
+        this.$POST('/ua/umail.json', {uid: user.uid, pageNum: 1, md5str: this.md5(this.pkey + user.uid)}).then(res => {
+          if (parseInt(res.code) === 200) {
+            this.$nextTick(() => {
+              this.lists = res.data.data
+            })
+          } else {
+            this.toast(res.msg)
+          }
+        }).catch(err => {
+          console.log(err.toString())
+          this.toast('网络请求异常!请重试!')
+        })
+      }
     },
     components: {
       [Cell.name]: Cell
